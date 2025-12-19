@@ -2,6 +2,15 @@
 
 // Configuration
 const API_BASE_URL = (() => {
+    const metaTag = document.querySelector('meta[name="api-base-url"]');
+    const globalOverride = window.AUTOASSESS_API_BASE_URL;
+    const sanitize = (url) => url.replace(/\/$/, '');
+    if (metaTag && metaTag.content.trim()) {
+        return sanitize(metaTag.content.trim());
+    }
+    if (globalOverride && typeof globalOverride === 'string' && globalOverride.trim()) {
+        return sanitize(globalOverride.trim());
+    }
     const origin = window.location.origin;
     const isFileProtocol = window.location.protocol === 'file:';
     if (!origin || origin === 'null' || isFileProtocol) {
