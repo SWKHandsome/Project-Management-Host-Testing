@@ -107,10 +107,19 @@ async function apiCall(endpoint, method = 'GET', body = null) {
         }
         
         const response = await fetch(`${API_BASE_URL}${endpoint}`, options);
-        const data = await response.json();
+        const contentType = response.headers.get('content-type') || '';
+        let data;
         
-        if (!data.success) {
-            throw new Error(data.error || 'Request failed');
+        if (contentType.includes('application/json')) {
+            data = await response.json();
+        } else {
+            const text = await response.text();
+            throw new Error(text || `Unexpected response format (status ${response.status})`);
+        }
+        
+        if (!response.ok || !data.success) {
+            const message = data?.error || data?.message || `Request failed with status ${response.status}`;
+            throw new Error(message);
         }
         
         return data;
