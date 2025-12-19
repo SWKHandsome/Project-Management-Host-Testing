@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoAssess - Lecturer Dashboard</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <h1 class="logo">📊 AutoAssess</h1>
+                <p class="subtitle">Autonomous Programming Assignment Evaluation System</p>
+            </div>
+            <div class="header-actions">
+                <button id="startMonitoringBtn" class="btn btn-primary">▶ Start Monitoring</button>
+                <button id="stopMonitoringBtn" class="btn btn-secondary" disabled>⏸ Stop Monitoring</button>
+                <div class="status-indicator" id="monitoringStatus">
+                    <span class="status-dot inactive"></span>
+                    <span class="status-text">Inactive</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Statistics Cards -->
+            <section class="stats-section">
+                <h2 class="section-title">Overview Statistics</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">📝</div>
+                        <div class="stat-content">
+                            <h3 class="stat-value" id="totalSubmissions">0</h3>
+                            <p class="stat-label">Total Submissions</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">✅</div>
+                        <div class="stat-content">
+                            <h3 class="stat-value" id="evaluated">0</h3>
+                            <p class="stat-label">Evaluated</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">⏳</div>
+                        <div class="stat-content">
+                            <h3 class="stat-value" id="pending">0</h3>
+                            <p class="stat-label">Pending</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📈</div>
+                        <div class="stat-content">
+                            <h3 class="stat-value" id="avgScore">0</h3>
+                            <p class="stat-label">Average Score</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🎯</div>
+                        <div class="stat-content">
+                            <h3 class="stat-value" id="passRate">0%</h3>
+                            <p class="stat-label">Pass Rate</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Actions Bar -->
+            <section class="actions-bar">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="🔍 Search by Student ID or Name..." class="search-input">
+                </div>
+                <div class="filter-group">
+                    <label for="statusFilter">Filter:</label>
+                    <select id="statusFilter" class="filter-select">
+                        <option value="">All Status</option>
+                        <option value="evaluated">Evaluated</option>
+                        <option value="pending">Pending</option>
+                        <option value="error">Error</option>
+                    </select>
+                </div>
+                <div class="action-buttons">
+                    <button id="refreshBtn" class="btn btn-outline">🔄 Refresh</button>
+                    <button id="downloadSpreadsheetBtn" class="btn btn-success">📊 Download Spreadsheet</button>
+                </div>
+            </section>
+
+            <!-- Submissions Table -->
+            <section class="submissions-section">
+                <div class="section-header">
+                    <h2 class="section-title">Student Submissions</h2>
+                    <span class="submission-count" id="submissionCount">0 submissions</span>
+                </div>
+                
+                <div class="table-container">
+                    <table class="submissions-table" id="submissionsTable">
+                        <thead>
+                            <tr>
+                                <th>Student ID</th>
+                                <th>Student Name</th>
+                                <th>File Name</th>
+                                <th>Submission Date</th>
+                                <th>Status</th>
+                                <th>Score</th>
+                                <th>Grade</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="submissionsBody">
+                            <!-- Dynamic content will be inserted here -->
+                        </tbody>
+                    </table>
+                    
+                    <!-- Loading Indicator -->
+                    <div class="loading" id="loadingIndicator" style="display: none;">
+                        <div class="spinner"></div>
+                        <p>Loading submissions...</p>
+                    </div>
+                    
+                    <!-- Empty State -->
+                    <div class="empty-state" id="emptyState" style="display: none;">
+                        <div class="empty-icon">📭</div>
+                        <h3>No Submissions Yet</h3>
+                        <p>Start monitoring to automatically detect and evaluate student submissions from Google Drive.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Modal for Submission Details -->
+    <div class="modal" id="detailsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Submission Details</h2>
+                <button class="close-btn" id="closeModalBtn">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Details will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 AutoAssess - Foundation Programming Logic Assignment Evaluation</p>
+        </div>
+    </footer>
+
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

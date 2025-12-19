@@ -1,0 +1,147 @@
+{
+  "logic_design": {
+    "weight": 30,
+    "max_score": 30,
+    "criteria": [
+      {
+        "name": "Problem Understanding",
+        "description": "Demonstrates clear understanding of the problem requirements",
+        "points": 8
+      },
+      {
+        "name": "Solution Correctness",
+        "description": "Solution correctly addresses the problem",
+        "points": 8
+      },
+      {
+        "name": "Algorithm Efficiency",
+        "description": "Uses efficient approach and optimal logic",
+        "points": 7
+      },
+      {
+        "name": "Edge Case Handling",
+        "description": "Considers and handles edge cases appropriately",
+        "points": 7
+      }
+    ]
+  },
+  "flowchart": {
+    "weight": 25,
+    "max_score": 25,
+    "criteria": [
+      {
+        "name": "Proper Symbol Usage",
+        "description": "Uses correct flowchart symbols (start/end, process, decision, etc.)",
+        "points": 7
+      },
+      {
+        "name": "Clear Flow Direction",
+        "description": "Flow is clear and follows logical progression with proper arrows",
+        "points": 6
+      },
+      {
+        "name": "Completeness",
+        "description": "Flowchart covers all aspects of the solution",
+        "points": 6
+      },
+      {
+        "name": "Readability",
+        "description": "Easy to read and understand, well-organized layout",
+        "points": 6
+      }
+    ]
+  },
+  "pseudocode": {
+    "weight": 25,
+    "max_score": 25,
+    "criteria": [
+      {
+        "name": "Syntax Accuracy",
+        "description": "Follows proper pseudocode syntax conventions",
+        "points": 7
+      },
+      {
+        "name": "Logical Structure",
+        "description": "Well-structured with proper BEGIN/END, indentation, and hierarchy",
+        "points": 6
+      },
+      {
+        "name": "Variable Naming",
+        "description": "Uses meaningful and consistent variable names",
+        "points": 6
+      },
+      {
+        "name": "Clarity",
+        "description": "Clear and easy to understand, properly commented",
+        "points": 6
+      }
+    ]
+  },
+  "formatting": {
+    "weight": 10,
+    "max_score": 10,
+    "criteria": [
+      {
+        "name": "Organization",
+        "description": "Well-organized with clear sections and structure",
+        "points": 3
+      },
+      {
+        "name": "Neatness",
+        "description": "Clean presentation, proper spacing and alignment",
+        "points": 3
+      },
+      {
+        "name": "Consistency",
+        "description": "Consistent formatting throughout the document",
+        "points": 2
+      },
+      {
+        "name": "Professional Appearance",
+        "description": "Overall professional look and presentation quality",
+        "points": 2
+      }
+    ]
+  },
+  "documentation": {
+    "weight": 10,
+    "max_score": 10,
+    "criteria": [
+      {
+        "name": "Comments Quality",
+        "description": "Appropriate and helpful comments throughout",
+        "points": 3
+      },
+      {
+        "name": "Explanations",
+        "description": "Clear explanations of logic and decisions",
+        "points": 3
+      },
+      {
+        "name": "Clarity",
+        "description": "Documentation is clear and easy to understand",
+        "points": 2
+      },
+      {
+        "name": "Completeness",
+        "description": "All important aspects are documented",
+        "points": 2
+      }
+    ]
+  },
+  "grading_scale": {
+    "A+": {"min": 90, "max": 100},
+    "A": {"min": 85, "max": 89},
+    "A-": {"min": 80, "max": 84},
+    "B+": {"min": 75, "max": 79},
+    "B": {"min": 70, "max": 74},
+    "B-": {"min": 65, "max": 69},
+    "C+": {"min": 60, "max": 64},
+    "C": {"min": 55, "max": 59},
+    "C-": {"min": 50, "max": 54},
+    "D": {"min": 45, "max": 49},
+    "F": {"min": 0, "max": 44}
+  },
+  "pass_threshold": 50,
+  "total_score": 100
+}
