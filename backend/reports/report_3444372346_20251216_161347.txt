@@ -1,0 +1,83 @@
+
+================================================================================
+                    PROGRAMMING LOGIC ASSIGNMENT
+                        ASSESSMENT REPORT
+================================================================================
+
+STUDENT INFORMATION
+--------------------------------------------------------------------------------
+Student ID       : 3444372346
+Student Name     : BTIS
+Assignment File  : BTIS2033_2025C_Assignment_B240253C.pdf
+Submission Date  : 2025-12-16 08:12:31
+Evaluation Date  : 2025-12-16 08:12:31
+
+================================================================================
+                         ASSESSMENT RESULTS
+================================================================================
+
+OVERALL SCORE: 24.0/100    GRADE: F
+
+================================================================================
+                        DETAILED BREAKDOWN
+================================================================================
+
+LOGIC DESIGN
+--------------------------------------------------------------------------------
+Score: 0.0/30 (0.0%)
+Feedback:
+  • Logic design could be more explicit
+
+
+FLOWCHART
+--------------------------------------------------------------------------------
+Score: 5.0/25 (20.0%)
+Feedback:
+  • Flow direction indicated
+
+
+PSEUDOCODE
+--------------------------------------------------------------------------------
+Score: 8.0/25 (32.0%)
+Feedback:
+  • Variable usage identified
+  • Comments included
+
+
+FORMATTING
+--------------------------------------------------------------------------------
+Score: 5.0/10 (50.0%)
+Feedback:
+  • Adequate content length
+  • Professional appearance
+
+
+DOCUMENTATION
+--------------------------------------------------------------------------------
+Score: 6.0/10 (60.0%)
+Feedback:
+  • Good use of comments
+
+================================================================================
+                      OVERALL FEEDBACK
+================================================================================
+
+STRENGTHS:
+  ✓ Continue practicing programming logic
+
+AREAS FOR IMPROVEMENT:
+  ○ Logic Design needs improvement (0.0%)
+  ○ Flowchart needs improvement (20.0%)
+  ○ Pseudocode needs improvement (32.0%)
+  ○ Formatting needs improvement (50.0%)
+
+RECOMMENDATIONS:
+  → Needs significant improvement. Seek help and review course materials.
+  → Improve problem-solving approach and algorithm design.
+  → Include detailed flowcharts with proper symbols.
+  → Write clearer pseudocode with proper structure.
+  → Add more comments and explanations to your work.
+
+================================================================================
+                    END OF REPORT
+================================================================================
