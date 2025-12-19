@@ -1,7 +1,14 @@
 // AutoAssess Dashboard JavaScript
 
 // Configuration
-const API_BASE_URL = 'http://localhost:5000';
+const API_BASE_URL = (() => {
+    const origin = window.location.origin;
+    const isFileProtocol = window.location.protocol === 'file:';
+    if (!origin || origin === 'null' || isFileProtocol) {
+        return 'http://localhost:5000';
+    }
+    return origin;
+})();
 
 // State Management
 let submissions = [];
