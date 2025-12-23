@@ -4,9 +4,11 @@ Monitors a specific folder for new submissions
 """
 import time
 import os
+from collections import deque
 from datetime import datetime
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
+from googleapiclient.errors import HttpError
 from googleapiclient.http import MediaIoBaseDownload
 import io
 
@@ -27,9 +29,33 @@ class DriveMonitor:
         self.extractor = DataExtractor()
         self.evaluator = AssignmentEvaluator()
         self.processed_file_ids = set()
+        self.request_timestamps = deque()
+        self.max_requests_per_minute = 50
+        self.throttle_window = 60
         
         # Initialize Google Drive API
         self.initialize_drive_api()
+
+    def _throttle_requests(self):
+        """Simple leaky-bucket limiter to keep requests under quota"""
+        now = time.time()
+        while self.request_timestamps and now - self.request_timestamps[0] > self.throttle_window:
+            self.request_timestamps.popleft()
+        if len(self.request_timestamps) >= self.max_requests_per_minute:
+            wait_for = self.throttle_window - (now - self.request_timestamps[0]) + 1
+            wait_for = max(1, int(wait_for))
+            print(f"  ⚠ Drive quota reached, pausing {wait_for}s")
+            time.sleep(wait_for)
+            self._throttle_requests()
+        else:
+            self.request_timestamps.append(now)
+
+    def _handle_rate_error(self, error, context):
+        if isinstance(error, HttpError) and error.resp.status in (403, 429):
+            print(f"  ⚠ Drive API {error.resp.status} during {context}, backing off 60s")
+            time.sleep(60)
+            return True
+        return False
     
     def initialize_drive_api(self):
         """Initialize Google Drive API service"""
@@ -96,6 +122,7 @@ class DriveMonitor:
             # Query for files in the specified folder
             query = f"'{Config.GOOGLE_DRIVE_FOLDER_ID}' in parents and trashed=false"
             
+            self._throttle_requests()
             results = self.service.files().list(
                 q=query,
                 fields="files(id, name, mimeType, size, createdTime, modifiedTime)",
@@ -118,6 +145,9 @@ class DriveMonitor:
             if new_files_count > 0:
                 print(f"✓ Processed {new_files_count} new file(s)")
             
+        except HttpError as http_error:
+            if not self._handle_rate_error(http_error, 'listing files'):
+                print(f"✗ Drive API error while listing files: {http_error}")
         except Exception as e:
             print(f"✗ Error checking for new files: {e}")
     
@@ -207,6 +237,7 @@ class DriveMonitor:
                     print("  ✗ Failed to reinitialize Drive service")
                     return b""
             
+            self._throttle_requests()
             request = self.service.files().get_media(fileId=file_id)
             file_handle = io.BytesIO()
             downloader = MediaIoBaseDownload(file_handle, request)
@@ -220,6 +251,11 @@ class DriveMonitor:
             print(f"  ✓ Downloaded {len(content)} bytes from Google Drive")
             return content
             
+        except HttpError as http_error:
+            if self._handle_rate_error(http_error, f'downloading file {file_id}'):
+                return self.download_file_content(file_id)
+            print(f"  ✗ Drive API error downloading file: {http_error}")
+            return b""
         except Exception as e:
             print(f"  ✗ Error downloading file from Google Drive: {e}")
             # Try reinitializing and retry once
@@ -227,6 +263,7 @@ class DriveMonitor:
                 print("  → Attempting to reinitialize Google Drive API...")
                 self.initialize_drive_api()
                 if self.service:
+                    self._throttle_requests()
                     request = self.service.files().get_media(fileId=file_id)
                     file_handle = io.BytesIO()
                     downloader = MediaIoBaseDownload(file_handle, request)
