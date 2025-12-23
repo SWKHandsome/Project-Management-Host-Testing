@@ -26,6 +26,6 @@ jobs:
         uses: azure/webapps-deploy@v3
         with: 
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE }}
-          app-name: pm-backend-app
+          app-name: Project-Management
           slot-name: Production
           package: backend
